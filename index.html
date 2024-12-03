@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ITMarket - Главная</title>
+
+</head>
+<body>
+    <style>
+      /* Общие настройки для всех элементов */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* Шапка */
+.header {
+    background: #1e1e2f;
+    color: #fff;
+    padding: 15px 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Контейнер для шапки */
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+}
+
+/* Логотип */
+.logo a {
+    font-size: 28px;
+    font-weight: bold;
+    color: #ff9800;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+/* Навигация */
+.nav-menu {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-menu li {
+    margin-right: 20px;
+    position: relative;
+}
+
+.nav-menu li a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 16px;
+    transition: color 0.3s ease;
+}
+
+.nav-menu li a:hover {
+    color: #ff9800;
+}
+
+/* Выпадающее меню */
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: #333;
+    list-style: none;
+    padding: 10px 0;
+    margin: 0;
+    width: 250px;
+    border-radius: 4px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+.dropdown-menu li a {
+    padding: 10px 20px;
+    color: #fff;
+    text-decoration: none;
+    font-size: 14px;
+    display: block;
+}
+
+.dropdown-menu li a:hover {
+    background: #ff9800;
+}
+
+/* Адаптивность для мобильных устройств */
+@media (max-width: 768px) {
+    .nav-menu {
+        display: none;
+    }
+    .header {
+        padding: 10px 0;
+    }
+    .container {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .logo a {
+        font-size: 24px;
+    }
+    .nav-menu.active {
+        display: block;
+    }
+}
+
+/* Слайдер */
+.promo-slider {
+    width: 100%;
+    margin-top: 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.slider {
+    display: flex;
+    position: relative;
+    width: 100%;
+    height: 100vh;
+}
+
+.slider-item {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    transition: opacity 0.5s ease-in-out;
+    display: none;
+}
+
+.slider-item.active {
+    display: block;
+}
+
+.slider-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.slide-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    text-align: center;
+    z-index: 10;
+    padding: 10px;
+}
+
+.slide-text h1 {
+    font-size: 50px;
+    font-weight: bold;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+    margin-bottom: 20px;
+}
+
+.slide-text p {
+    font-size: 20px;
+    font-weight: 300;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+    margin-bottom: 30px;
+}
+
+.btn-slide {
+    padding: 12px 24px;
+    background-color: #ff9800;
+    color: white;
+    font-size: 18px;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.nav-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 12px;
+    cursor: pointer;
+    font-size: 30px;
+    z-index: 100;
+    transition: background-color 0.3s ease;
+}
+
+.nav-button.prev {
+    left: 10px;
+}
+
+.nav-button.next {
+    right: 10px;
+}
+
+@media (max-width: 768px) {
+    .slider-item img {
+        object-fit: contain;
+    }
+
+    .slide-text h1 {
+        font-size: 30px;
+    }
+
+    .slide-text p {
+        font-size: 16px;
+    }
+
+    .btn-slide {
+        font-size: 16px;
+        padding: 10px 20px;
+    }
+}
+
+/* Стили для секции товаров под акцию */
+.products {
+    margin-top: 10px; /* Отступ от слайда сверху */
+    padding: 20px 0;
+    text-align: center; /* Центрирование текста */
+}
+
+/* Контейнер для товаров */
+.product-grid {
+    display: flex;
+    justify-content: space-between; /* Выравнивание карточек по ширине */
+    gap: 20px;
+    margin-top: 20px;
+    flex-wrap: wrap; /* Разрешаем обертку элементов */
+}
+
+/* Элемент товара */
+.product-item {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease;
+    padding: 20px;
+    text-align: center;
+    position: relative; /* Для ленточки акции */
+    flex: 1 0 48%; /* Каждая карточка будет занимать минимум 48% от контейнера */
+    max-width: 48%; /* Ограничиваем максимальную ширину */
+}
+
+/* Ленточка с акцией 10% */
+.product-item::before {
+    content: '10% OFF'; /* Текст ленточки */
+    position: absolute;
+    top: 10px;
+    left: 0; /* Приклеиваем к левому краю */
+    transform: rotate(-45deg); /* Поворот ленточки */
+    background: red;
+    color: white;
+    font-weight: bold;
+    font-size: 14px;
+    padding: 5px 10px;
+    text-align: center;
+    z-index: 1;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+
+/* Эффект при наведении на товар */
+.product-item:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Стили для изображений товаров */
+.product-item img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+/* Стили для заголовка товара */
+.product-item h3 {
+    font-size: 18px;
+    margin: 10px 0;
+    font-weight: 600;
+    color: #333;
+}
+
+/* Стили для описания товара */
+.product-item p {
+    font-size: 14px;
+    color: #777;
+    margin-bottom: 15px;
+}
+
+/* Стили для цены товара */
+.product-item .price {
+    font-size: 16px;
+    font-weight: bold;
+    color: #ff9800;
+    margin-bottom: 20px;
+}
+
+/* Стили для старой цены */
+.product-item .old-price {
+    text-decoration: line-through;
+    color: #999;
+    margin-left: 10px;
+}
+
+/* Стили для кнопки */
+.product-item .btn {
+    padding: 10px 20px;
+    background-color: #ff9800;
+    color: #fff;
+    font-size: 14px;
+    text-decoration: none;
+    border-radius: 30px;
+    transition: background-color 0.3s ease;
+}
+
+.product-item .btn:hover {
+    background-color: #e68900;
+}
+
+/* Адаптивность для мобильных устройств */
+@media (max-width: 768px) {
+    .products {
+        padding: 10px 0; /* Уменьшаем отступы на мобильных */
+    }
+
+    .product-grid {
+        gap: 10px; /* Меньше отступы между карточками на мобильных */
+    }
+
+    .product-item {
+        padding: 15px;
+        max-width: 100%; /* Каждая карточка будет занимать всю ширину на мобильных */
+    }
+
+    .product-item h3 {
+        font-size: 16px;
+    }
+
+    .product-item p {
+        font-size: 12px;
+    }
+}
+    </style>
+    <header class="header">
+        <div class="container">
+            <!-- Логотип -->
+            <div class="logo">
+                <a href="#">ITMarket</a>
+            </div>
+
+            <!-- Навигация -->
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="#">Главная</a></li>
+
+                    <!-- Категории с выпадающим меню -->
+                    <li class="dropdown">
+                        <a href="#">Категории</a>
+                        <ul class="dropdown-menu">
+                            <li class="submenu">
+                                <a href="#">Ноутбуки</a>
+                                <ul class="submenu-items">
+                                    <li><a href="#">Для игр</a></li>
+                                    <li><a href="#">Для работы</a></li>
+                                    <li><a href="#">Для учебы</a></li>
+                                    <li><a href="#">Бюджетные</a></li>
+                                </ul>
+                            </li>
+                            <li class="submenu">
+                                <a href="#">Стационарные ПК</a>
+                                <ul class="submenu-items">
+                                    <li><a href="#">Игровые ПК</a></li>
+                                    <li><a href="#">Офисные ПК</a></li>
+                                    <li><a href="#">Для дома</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="#">Мониторы</a></li>
+                        </ul>
+                    </li>
+
+                    <!-- Перемещаем "Комплектующие для ПК" сюда -->
+                    <li class="dropdown">
+                        <a href="#">Комплектующие для ПК</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Материнские платы</a></li>
+                            <li><a href="#">Процессоры</a></li>
+                            <li><a href="#">Оперативная память</a></li>
+                            <li><a href="#">Видеокарты</a></li>
+                            <li><a href="#">Жесткие диски</a></li>
+                            <li><a href="#">Корпуса</a></li>
+                            <li><a href="#">Блоки питания</a></li>
+                        </ul>
+                    </li>
+
+                    <!-- Оставшиеся пункты -->
+                    <li><a href="#">О нас</a></li>
+                    <li><a href="#">Контакты</a></li>
+                    <li><a href="cart.html">Корзина</a></li>
+                </ul>
+            </nav>
+
+            <!-- Поиск -->
+            <div class="search">
+                <input type="text" placeholder="Поиск...">
+                <button type="submit">Поиск</button>
+            </div>
+
+        </div>
+    </header>
+
+    <!-- Слайдер -->
+    <div class="promo-slider">
+        <div class="slider">
+            <!-- Первый слайд -->
+            <div class="slider-item active">
+                <div class="slide-content">
+                    <img src="img/slide1.jpg" alt="ПК для игр">
+                    <div class="slide-text">
+                        <h1>Игровые ПК с мощными характеристиками</h1>
+                        <p>Погрузитесь в мир современных игр с нашими игровыми ПК. Высокая производительность и надежность.</p>
+                        <button class="btn-slide">Подробнее</button>
+                    </div>
+                </div>
+            </div>
+            <!-- Второй слайд -->
+            <div class="slider-item">
+                <div class="slide-content">
+                    <img src="img/slide2.jpg" alt="Ноутбуки">
+                    <div class="slide-text">
+                        <h1>Ноутбуки для работы и учебы</h1>
+                        <p>Надежные ноутбуки для любых задач. Легкие, быстрые и с долгим временем работы.</p>
+                        <button class="btn-slide">Подробнее</button>
+                    </div>
+                </div>
+            </div>
+            <!-- Третий слайд -->
+            <div class="slider-item">
+                <div class="slide-content">
+                    <img src="img/slide3.jpg" alt="Скидки">
+                    <div class="slide-text">
+                        <h1>Скидки до 20% на комплектующие!</h1>
+                        <p>Успейте купить лучшие комплектующие для вашего ПК с выгодной скидкой. Только в этом месяце.</p>
+                        <button class="btn-slide">Подробнее</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Кнопки навигации -->
+        <button class="nav-button prev">&#10094;</button>
+        <button class="nav-button next">&#10095;</button>
+    </div>
+
+    <section class="products">
+        <div class="container">
+            <h2>Товары под акцию</h2>
+            <div class="product-grid">
+                <!-- Товар 1 -->
+                <div class="product-item">
+                    <img src="img/product1.jpg" alt="Товар 1">
+                    <h3>Игровой компьютер</h3>
+                    <p>Успей купить по акции! Мощный игровой ПК с топовыми характеристиками.</p>
+                    <span class="price">₽ 75 000 <span class="old-price">₽ 85 000</span></span>
+                    <a href="#" class="btn" data-id="1" data-name="Игровой компьютер" data-price="75000" data-img="img/product1.jpg">Купить</a>
+                </div>
+                <!-- Товар 2 -->
+                <div class="product-item">
+                    <img src="img/product2.jpg" alt="Товар 2">
+                    <h3>Ноутбук ASUS</h3>
+                    <p>Ноутбук ASUS с отличной скидкой! Идеален для работы и учебы.</p>
+                    <span class="price">₽ 49 000 <span class="old-price">₽ 55 000</span></span>
+                    <a href="#" class="btn" data-id="2" data-name="Ноутбук ASUS" data-price="49000" data-img="img/product2.jpg">Купить</a>
+                </div>
+                <!-- Товар 3 -->
+                <div class="product-item">
+                    <img src="img/product3.jpg" alt="Товар 3">
+                    <h3>Мышь Logitech</h3>
+                    <p>Легендарная мышь Logitech с дополнительной скидкой для геймеров.</p>
+                    <span class="price">₽ 1 800 <span class="old-price">₽ 2 000</span></span>
+                    <a href="#" class="btn" data-id="3" data-name="Мышь Logitech" data-price="1800" data-img="img/product3.jpg">Купить</a>
+                </div>
+                <!-- Товар 4 -->
+                <div class="product-item">
+                    <img src="img/product4.jpg" alt="Товар 4">
+                    <h3>Клавиатура Razer</h3>
+                    <p>Скидка на механическую клавиатуру Razer с подсветкой для геймеров.</p>
+                    <span class="price">₽ 5 500 <span class="old-price">₽ 6 000</span></span>
+                    <a href="#" class="btn" data-id="4" data-name="Клавиатура Razer" data-price="5500" data-img="img/product4.jpg">Купить</a>
+                </div>
+                <!-- Товар 5 -->
+                <div class="product-item">
+                    <img src="img/product5.jpg" alt="Товар 5">
+                    <h3>Сетевое оборудование TP-Link</h3>
+                    <p>Сетевое оборудование TP-Link по сниженной цене — выгодная покупка для дома и офиса.</p>
+                    <span class="price">₽ 3 000 <span class="old-price">₽ 3 500</span></span>
+                    <a href="#" class="btn" data-id="5" data-name="Сетевое оборудование TP-Link" data-price="3000" data-img="img/product5.jpg">Купить</a>
+                </div>
+                <!-- Товар 6 -->
+                <div class="product-item">
+                    <img src="img/product6.jpg" alt="Товар 6">
+                    <h3>Монитор Dell</h3>
+                    <p>Качество изображения и скидка! Прекрасный монитор для работы и игр по акции.</p>
+                    <span class="price">₽ 13 500 <span class="old-price">₽ 15 000</span></span>
+                    <a href="#" class="btn" data-id="6" data-name="Монитор Dell" data-price="13500" data-img="img/product6.jpg">Купить</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+
+    <!-- Подвал -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 ITMarket. Все права защищены.</p>
+            <p>Контакты: +7 (999) 123-45-67 | info@itmarket.ru</p>
+        </div>
+    </footer>
+    <script src="js/script.js"></script>
+</body>
+</html>
